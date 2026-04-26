@@ -4,14 +4,14 @@ subtitle: "Multi-format Quarto extension"
 author: "hebstr"
 date: today
 format:
-  hebstr-html: default
-  hebstr-typst: default
-  # hebstr-docx: default
+  hebstr-html:
+    code-tools:
+      source: https://github.com/hebstr/quarto-hebstr
 ---
 
 # Typography and headings
 
-This document exercises every capability declared in `_extension.yml` so a single `quarto render example.qmd` validates the extension across HTML, Typst, and DOCX.
+This document exercises every capability declared in `_extension.yml` so a single `quarto render example.qmd` validates the extension. Only `hebstr-html` is declared on `main`; Typst and DOCX outputs will be added once those formats are validated.
 
 The body font is **Luciole** (sans-serif, designed for low-vision readers). Inline `code()` uses **Fira Code** with programming ligatures.
 
@@ -108,6 +108,39 @@ palmerpenguins::penguins |>
   ) |>
   arrange(desc(mean_mass_g))
 ```
+
+# Code window
+
+The blocks below exercise the [`mcanouil/quarto-code-window`](https://github.com/mcanouil/quarto-code-window) filter declared in the YAML front matter.
+The extension configures `style: default` (plain filename header, no traffic lights or window chrome — see `_extension.yml`) ; with `auto-filename: true`, blocks without an explicit `filename=` show the language name as the header label.
+
+## Auto-generated filename (language name)
+
+```python
+def greet(name: str) -> str:
+    return f"Hello, {name}!"
+```
+
+```r
+penguins |>
+  dplyr::count(species)
+```
+
+```bash
+quarto add hebstr/quarto-hebstr --no-prompt
+quarto render example.qmd
+```
+
+# Injected script
+
+The block below is **not** an inline chunk — it is the content of `scripts/demo_penguins.R`, injected via the in-tree `filters/add-code-files.lua` filter (derived from [`shafayetShafee/add-code-files`](https://github.com/shafayetShafee/add-code-files), MIT). The `code-filename` attribute wraps the block in a foldable `<details>` element (collapsed by default) ; clicking the filename header expands it.
+
+This is the canonical pattern for hebstr: inline chunks display as `code-window`, externalised scripts display as foldable `add-code-files` blocks.
+
+::: {add-from="scripts/demo_penguins.R" code-line-numbers="true" code-filename="demo_penguins.R"}
+```r
+```
+:::
 
 # Equation
 

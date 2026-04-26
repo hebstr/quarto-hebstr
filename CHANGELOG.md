@@ -1,50 +1,44 @@
 # Changelog
 
-## [0.10.0] — 2026-04-24
+## [0.10.0] — 2026-04-26
 
 ### Added
 
-- `README.md` with install, formats, usage, fonts, customisation, licence sections.
-- `example.qmd` at repo root: self-contained demo covering typography, lists,
-  figure (ggplot + palmerpenguins), table, code block, equation, callouts, quote,
-  cross-references. Renders to HTML, Typst (PDF), and DOCX.
-- `LICENSE.md` (MIT) at repo root.
-- Bundled font licence files: `_extensions/hebstr/fonts/LICENSE-Luciole.md`
-  (CC-BY 4.0 + attribution) and `LICENSE-FiraCode.md` (OFL 1.1 upstream verbatim).
-- `.gitignore` covering render artefacts, Quarto caches, editor files.
+- `README.md`, `LICENSE.md` (MIT), `.gitignore`.
+- Self-contained `example.qmd` (HTML; Typst and DOCX planned), plus
+  `scripts/demo_penguins.R` for the externalised-script demo.
+- Bundled font licences (Luciole CC-BY 4.0, Fira Code OFL 1.1).
+- Embedded [`mcanouil/code-window`](https://github.com/mcanouil/quarto-code-window)
+  (HTML + Typst) and inlined `add-code-files` filter under `filters/`.
+- SCSS custom properties for code-window chrome and surface/caption colours.
 
 ### Changed
 
-- **Breaking (Typst)**: code raw theme path updated to
-  `_extensions/hebstr/code.tmTheme` (previously `hebstr-template/resources/…`,
-  which never resolved correctly after the rename).
-- **Breaking (layout)**: removed `_extensions/hebstr/resources/` intermediate
-  directory. `template.typ`, `code.tmTheme`, `chazard.dotx` are now at the
-  extension root; font files and `fonts.css` grouped under `fonts/`. All paths
-  in `_extension.yml` updated accordingly.
-- **Breaking (defaults)**: `lang: fr` and `published-title: "dernière mise à jour"`
-  removed from the `common:` block — consumers now declare their own language
-  (`lang: fr` is a single-line opt-in in the consumer's `_quarto.yml`).
-- `tbl-title` changed from `"Tableau"` to `"Table"` — neutral across EN and FR.
-- Bumped `quarto-required` from `>=1.7.0` to `>=1.8.0`.
-- HTML: set `page-layout: full` and increased `grid.gutter-width` from `2rem`
-  to `3rem` for more generous horizontal spacing.
+- **Breaking**: extension renamed `hebstr-template` → `hebstr`; resource layout
+  flattened (`template.typ`, `code.tmTheme`, `template.dotx` at extension root,
+  fonts under `fonts/`); Typst raw theme path fixed accordingly.
+- **Breaking**: `lang` and `published-title` removed from `common:` — consumers
+  declare their own language.
+- `quarto-required` bumped to `>=1.9.36` (matches the embedded `mcanouil/code-window` 1.1.5); `tbl-title` neutralised to `"Table"`.
+- HTML: `page-layout: full`, wider `gutter-width`, `code-copy: always`.
+- Theme: code-filename block restyled to match code-window; system font
+  fallbacks added with `!default` for consumer overrides; code-highlight
+  palette switched from purple to dark grey to match the code-window chrome.
+- Font licence files renamed `LICENSE-Luciole.md` → `Luciole.LICENSE` and
+  `LICENSE-FiraCode.md` → `FiraCode.LICENSE` (alignment with
+  `filters/add-code-file.LICENSE`).
 
-### Fixed
+### Removed
 
-- Extension title renamed from `hebstr-template` to `hebstr`; the stale
-  `hebstr-template` path in `template.typ` that prevented Typst rendering in
-  consumers is now corrected.
+- `filters/resources/add-code-files.css`: all rules were already shadowed by
+  `theme.scss` (`body div[data-code-filename] { … }`); the inlined filter
+  registers only the JS dependency.
 
 ## [0.9.0] — 2026-04-24
 
 ### Added
 
-- Multi-format Quarto extension declaring `hebstr-html`, `hebstr-typst`,
-  and `hebstr-docx` via a shared `common:` block.
-- HTML theme (`theme.scss`) with Bootstrap/Bootswatch SCSS, Luciole and
-  Fira Code fonts, lightbox, custom grid widths.
-- Typst preamble (`template.typ`) styling headings, lists, tables, code
-  blocks, equations, and quotes.
-- DOCX reference doc (`chazard.dotx`).
-- Luciole and Fira Code font files (`.woff` + `.woff2`).
+- Multi-format Quarto extension (`hebstr-html`, `hebstr-typst`, `hebstr-docx`)
+  via a shared `common:` block.
+- HTML theme (Bootstrap/Bootswatch SCSS), Typst preamble, DOCX reference doc,
+  Luciole and Fira Code fonts.
