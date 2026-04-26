@@ -13,7 +13,8 @@
 - `script` shortcode (`filters/add-code-files.lua`): one-liner `{{< script path/to/file.R >}}`
   for injecting external scripts. Auto-derives `source-lang` from extension,
   defaults `code-filename` to the path, line numbers on by default. Args:
-  `lang=`, `filename=`, `numbers=`, `lines=10-30`, `dedent=N`. The shortcode
+  `lang=`, `filename=`, `numbers=`, `lines=10-30`, `dedent=N`, `suffix=` (num
+  or str, appended to the displayed filename with a space). The shortcode
   reads the file itself and emits the populated CodeBlock with `cell-code`
   class (so Quarto's `code-fold` wraps it in `<details>`) plus the `cw-auto`
   + `filename` attributes that hand off to `code-window`'s JS for the chrome.

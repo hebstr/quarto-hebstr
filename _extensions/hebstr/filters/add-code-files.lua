@@ -80,7 +80,10 @@ return {
     local filename = kw(kwargs, "filename", path)
     local numbers  = kw(kwargs, "numbers", "true")
     local dedent_s = kw(kwargs, "dedent", nil)
+    local suffix   = kw(kwargs, "suffix", nil)
     local s, e     = parse_lines(kw(kwargs, "lines", nil))
+
+    if suffix then filename = filename .. " " .. suffix end
 
     local content = read_file(path, s, e, dedent_s and tonumber(dedent_s) or nil)
     if content == nil then
