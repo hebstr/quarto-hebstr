@@ -11,7 +11,8 @@
 - Embedded [`mcanouil/code-window`](https://github.com/mcanouil/quarto-code-window)
   (HTML + Typst).
 - `script` shortcode (`filters/add-code-files.lua`): one-liner `{{< script path/to/file.R >}}`
-  for injecting external scripts. Auto-derives `source-lang` from extension,
+  for injecting external scripts. Auto-derives `source-lang` from extension
+  (or basename for dotfiles like `.Rprofile`),
   defaults `code-filename` to the path, line numbers on by default. Args:
   `lang=`, `filename=`, `numbers=`, `lines=10-30`, `dedent=N`, `suffix=` (num
   or str, appended to the displayed filename with a space). The shortcode

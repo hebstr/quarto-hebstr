@@ -37,8 +37,12 @@ contributes:
       code-copy: always
       html-table-processing: none
       html-math-method: plain
-      theme: theme.scss
+      theme:
+        light: theme.scss
+        dark: theme-dark.scss
       css: fonts/fonts.css
+      include-after-body:
+        - filters/toggle-position.html
       lightbox: true
       grid:
         sidebar-width: 0px
