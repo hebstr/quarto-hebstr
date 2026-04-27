@@ -479,8 +479,13 @@ body div[data-code-filename] {
   .callout-title-container {
     font-size: 1rem;
     text-align: left;
-    margin: 0.4rem 0.2rem;
+    margin-top: 0.4rem;
+    margin-bottom: 0.8rem;
+    padding-left: 0.25rem;
     padding-right: 1.3rem;
+  }
+  &.callout-titled:has(.callout-body > *) .callout-title-container {
+    margin-bottom: 0.4rem;
   }
   .callout-body {
     padding-right: 1.3rem;

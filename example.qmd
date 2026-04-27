@@ -155,6 +155,10 @@ Callouts use `callout-appearance: simple`.
 
 ::: {.callout-note}
 # A note callout.
+:::
+
+::: {.callout-note}
+# Le note callout.
 
 {{< lipsum 1 >}}
 
