@@ -65,7 +65,61 @@ Callout icons are rendered with **Font Awesome 7 Solid**, shipped locally as `fa
 
 ## Customisation
 
-The HTML theme is split across three SCSS files loaded as ordered pairs by Quarto's `theme:` key:
+### Frontmatter overrides (no SCSS required)
+
+Most aesthetic choices ship as standard Quarto keys, so a consumer can override them directly from a document's YAML frontmatter:
+
+```yaml
+---
+title: "My Document"
+format:
+  hebstr-html:
+    mainfont: "Inter"
+    monofont: "JetBrains Mono"
+    fontsize: 1rem
+    linestretch: 1.6
+    page-layout: article
+    toc-depth: 2
+    toc-expand: false
+    grid:
+      body-width: 900px
+      margin-width: 300px
+---
+```
+
+Available knobs:
+
+| Key | Default | Notes |
+|---|---|---|
+| `mainfont` | `Luciole` | Bound to `$font-family-sans-serif`. Setting it to a non-bundled family loses the system fallback chain — for robust fallbacks, override SCSS instead (see below). |
+| `monofont` | `Fira Code` | Bound to `$font-family-monospace`. Same caveat. |
+| `fontsize` | `1.2rem` | Bound to `$font-size-root`. Accepts `rem`, `em`, `px`. |
+| `linestretch` | `1.75` | Bound to Bootstrap's `$line-height-base` (unitless multiplier). |
+| `page-layout` | `full` | Standard Quarto values: `full`, `article`, `custom`. |
+| `toc` / `toc-depth` / `toc-expand` | `true` / `4` / `true` | Standard Quarto TOC keys. |
+| `grid` | `body-width: 1100px`, `margin-width: 600px`, `gutter-width: 3rem`, `sidebar-width: 0` | Override individual keys; missing keys fall back to extension defaults. |
+
+### Brand colours and typography via `_brand.yml`
+
+For cross-format brand consistency (HTML + Typst + DOCX share the same palette and fonts), drop a `_brand.yml` at the project root:
+
+```yaml
+color:
+  palette:
+    primary: "#0099FF"
+    secondary: "#FF0000"
+typography:
+  base:
+    family: "Luciole"
+  monospace:
+    family: "Fira Code"
+```
+
+Quarto wires `color.palette.primary` to Bootstrap's `$primary` (and `secondary` to `$secondary`) before the extension's SCSS layers load — the derived `$primary-back` / `$primary-surface` / `$primary-dark` are recomputed from the brand colour automatically. See [Quarto — Brand](https://quarto.org/docs/authoring/brand.html) for the full schema.
+
+### Deeper SCSS overrides
+
+For everything else (callout colours, code-window chrome, surface tints, callout mix knobs), the HTML theme is split across three SCSS files loaded as ordered pairs by Quarto's `theme:` key:
 
 - `_extensions/hebstr/theme-light.scss` — light-mode `scss:defaults` only.
 - `_extensions/hebstr/theme-dark.scss` — dark-mode `scss:defaults` only.
@@ -85,7 +139,7 @@ CSS custom properties exposed under `:root`, grouped by purpose:
 
 SCSS variables exposed with `!default` (override before the theme files are loaded):
 
-- typography: `$font-family-sans-serif`, `$font-family-monospace`, `$font-size-root`, `$toc-font-size`, `$callout-icon-scale`
+- typography: `$font-family-sans-serif`, `$font-family-monospace`, `$toc-font-size`, `$callout-icon-scale` (root font size and line height are driven by `fontsize` / `linestretch` in the YAML — see above)
 - brand & body: `$primary`, `$secondary`, `$body-bg`, `$body-color`, `$primary-back`, `$primary-surface`, `$primary-dark`
 - surfaces, inline highlights, callouts: same names as the matching custom properties (drop the `--` prefix, replace with `$`)
 - code chrome (invariant across light/dark): `$code-foreground-color`, `$code-background-color`, `$code-comment-color`, `$code-window-{titlebar-bg,border,line-divider,muted,line-number}`

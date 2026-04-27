@@ -1,5 +1,27 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- Frontmatter overrides for the most common aesthetic knobs, surfaced at the
+  format level in `_extension.yml`: `mainfont`, `monofont`, `fontsize`,
+  `linestretch` (joining the existing `page-layout`, `toc*`, `grid.*`).
+  Consumers can now retune typography and layout from a document's YAML
+  without writing SCSS.
+- README section "Frontmatter overrides" listing the 8 directly overridable
+  parameters with an example, plus a `_brand.yml` subsection covering
+  cross-format brand colours and typography (no extension change required —
+  the existing `$primary` / `$secondary` `!default` SCSS already defers to
+  Quarto's brand layer, and derived shades are recomputed via `color-mix`).
+
+### Fixed
+
+- `linestretch` from the YAML is now respected. Previously a hardcoded
+  `p { line-height: 1.75rem }` in `theme-base.scss` shadowed Bootstrap's
+  `$line-height-base`, silently ignoring any consumer override. The rule was
+  removed; `linestretch: 1.75` (the new default) reproduces the prior look.
+
 ## [0.11.0] — 2026-04-27
 
 ### Added
