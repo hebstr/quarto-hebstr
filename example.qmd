@@ -11,7 +11,7 @@ format:
 
 # Typography and headings
 
-This document exercises every capability declared in `_extension.yml` so a single `quarto render example.qmd` validates the extension. Only `hebstr-doc-html` is declared on `main`; Typst and DOCX outputs will be added once those formats are validated.
+This document exercises every capability declared in `_extension.yml`, so `quarto render example.qmd` validates the extension in one shot. Only `hebstr-doc-html` is declared on `main`; Typst and DOCX outputs land once those formats are validated.
 
 The body font is **Luciole** (sans-serif, designed for low-vision readers). Inline `code()` uses **Fira Code** with programming ligatures.
 
@@ -45,7 +45,7 @@ Ordered:
 
 # Figure {#sec-figure}
 
-@fig-penguins is generated inline by **ggplot2** using the `palmerpenguins` dataset, driven by the shared knitr chunk options from `_extension.yml` (`echo: false`, `message: false`, `warning: false`).
+@fig-penguins comes from **ggplot2** on the `palmerpenguins` dataset, with the shared knitr chunk options from `_extension.yml` (`echo: false`, `message: false`, `warning: false`).
 
 ```{r}
 #| label: fig-penguins
@@ -73,7 +73,7 @@ The HTML output wraps figures in lightbox; click the image to enlarge.
 
 # Table
 
-Code chunk below is a simple aggregation rendered as a Markdown table. `tbl-cap-location: top` puts the caption above the table; `tbl-title: "Table"` is language-neutral.
+The chunk below is a simple aggregation rendered as a Markdown table. `tbl-cap-location: top` puts the caption above the table; `tbl-title: "Table"` is language-neutral.
 
 ```{r}
 #| echo: true
@@ -88,7 +88,7 @@ palmerpenguins::penguins |>
 
 # Code block
 
-The chunk below is shown with `echo: true` (overriding the default) to exercise syntax highlighting, code folding, and the copy-on-hover button (HTML), plus the `code.tmTheme` TextMate theme applied by Typst via `#set raw(theme: …)` in `template.typ`.
+The chunk below sets `echo: true` (overriding the default) to exercise syntax highlighting, code folding, and the copy-on-hover button (HTML), plus the `code.tmTheme` TextMate theme that Typst applies via `#set raw(theme: …)` in `template.typ`.
 
 ```{r}
 #| echo: true
@@ -110,7 +110,7 @@ palmerpenguins::penguins |>
 # Code window
 
 The blocks below exercise the [`mcanouil/quarto-code-window`](https://github.com/mcanouil/quarto-code-window) filter declared in the YAML front matter.
-The extension configures `style: default` (plain filename header, no traffic lights or window chrome ; see `_extension.yml`) ; with `auto-filename: true`, blocks without an explicit `filename=` show the language name as the header label.
+The extension sets `style: default` (plain filename header, no traffic lights or window chrome; see `_extension.yml`); with `auto-filename: true`, blocks without an explicit `filename=` show the language name as the header label.
 
 ## Auto-generated filename (language name)
 
@@ -131,9 +131,9 @@ quarto render example.qmd
 
 # Injected script
 
-The block below is **not** an inline chunk. It is the content of `scripts/demo_penguins.R`, injected via the `script` shortcode (in-tree `filters/add-code-files.lua`). The shortcode reads the file, emits the populated code block with the `cell-code` class so Quarto's `code-fold` wraps it in a foldable `<details>` element (collapsed by default) ; clicking the filename header expands it. The `<summary>` text is rewritten to the filename by `filters/add-code-files.js` (derived from [`shafayetShafee/add-code-files`](https://github.com/shafayetShafee/add-code-files), MIT).
+The block below is **not** an inline chunk. It holds the content of `scripts/demo_penguins.R`, injected via the `script` shortcode (in-tree `filters/add-code-files.lua`). The shortcode reads the file and emits the populated code block with the `cell-code` class, so Quarto's `code-fold` wraps it in a foldable `<details>` element (collapsed by default); clicking the filename header expands it. `filters/add-code-files.js` rewrites the `<summary>` text to the filename (derived from [`shafayetShafee/add-code-files`](https://github.com/shafayetShafee/add-code-files), MIT).
 
-This is the canonical pattern for hebstr-doc: inline chunks display as `code-window`, externalised scripts display as foldable `script` blocks.
+This is the canonical pattern for hebstr-doc: inline chunks render as `code-window`, externalised scripts render as foldable `script` blocks.
 
 {{< script scripts/demo_penguins.R >}}
 
