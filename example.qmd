@@ -137,6 +137,47 @@ This is the canonical pattern for hebstr-doc: inline chunks render as `code-wind
 
 {{< script scripts/demo_penguins.R >}}
 
+## Tabset {#sec-tabs}
+
+Tabs use the `.panel-tabset` div class; `tab-background` from `theme-light.scss` / `theme-dark.scss` sets the panel fill.
+
+::: {.panel-tabset}
+
+## Adelie
+
+```{r}
+#| echo: true
+#| code-fold: false
+palmerpenguins::penguins |>
+  dplyr::filter(species == "Adelie") |>
+  dplyr::select(island, bill_length_mm, flipper_length_mm, body_mass_g) |>
+  head(5)
+```
+
+## Chinstrap
+
+```{r}
+#| echo: true
+#| code-fold: false
+palmerpenguins::penguins |>
+  dplyr::filter(species == "Chinstrap") |>
+  dplyr::select(island, bill_length_mm, flipper_length_mm, body_mass_g) |>
+  head(5)
+```
+
+## Gentoo
+
+```{r}
+#| echo: true
+#| code-fold: false
+palmerpenguins::penguins |>
+  dplyr::filter(species == "Gentoo") |>
+  dplyr::select(island, bill_length_mm, flipper_length_mm, body_mass_g) |>
+  head(5)
+```
+
+:::
+
 # Equation
 
 Inline math: $y = \beta_0 + \beta_1 x + \varepsilon$.
